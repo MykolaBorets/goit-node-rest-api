@@ -1,6 +1,8 @@
 import Contact from "../models/Contact.js";
 
-export const listContacts = () => Contact.find();
+export const listContacts = (filter, setting) => Contact.find(filter, null, setting).populate("owner", "email");
+
+export const listContactsCount = filter => Contact.countDocuments(filter);
 
 export const addContact = (data) => Contact.create(data);
 
