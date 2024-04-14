@@ -14,8 +14,10 @@ export const getAllContacts = async (req, res, next) => {
     const { page = 1, limit = 20, favorite } = req.query;
     const skip = (page - 1) * limit;
     let filter = { owner };
-    if (favorite && favorite === "true") {
+    if (favorite === "true") {
       filter.favorite = true;
+    } else if (favorite === "false") {
+      filter.favorite = false;
     }
 
     const allContacts = await contactsServices.listContacts(filter, {
