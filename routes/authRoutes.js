@@ -33,8 +33,8 @@ authRouter.patch(
 );
 authRouter.patch(
   "/avatars",
-  upload.single("avatarURL"),
   authenticate,
+  upload.single("avatar"),
   fetchUpdateUserAvatar
 );
 
