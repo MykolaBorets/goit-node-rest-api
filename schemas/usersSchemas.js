@@ -16,3 +16,7 @@ export const userUpdateSub = Joi.object({
   email: Joi.string().pattern(emailRegepxp),
   subscription: Joi.string().valid("starter", "pro", "business"),
 });
+
+export const userEmailSchema = Joi.object({
+  email: Joi.string().pattern(emailRegepxp).required(),
+})

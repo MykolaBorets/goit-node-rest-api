@@ -1,6 +1,8 @@
 import express from "express";
 import {
   fetchRegisterUser,
+  fetchUserVerify,
+  fetchResendVerify,
   fetchLoginUser,
   fetchCurrentUser,
   fetchLogoutUser,
@@ -11,8 +13,9 @@ import {
   userSignInSchema,
   usersSignUpSchema,
   userUpdateSub,
+  userEmailSchema,
 } from "../schemas/usersSchemas.js";
-import validateBody from "../helpers/validateBody.js";
+import { validateBody, validateBodyResendEmail } from "../helpers/validateBody.js";
 import authenticate from "../middlewares/authenticate.js";
 import upload from "../middlewares/upload.js";
 
@@ -21,6 +24,12 @@ authRouter.post(
   "/register",
   validateBody(usersSignUpSchema),
   fetchRegisterUser
+);
+authRouter.get("/verify/:verificationToken", fetchUserVerify);
+authRouter.post(
+  "/verify",
+  validateBodyResendEmail(userEmailSchema),
+  fetchResendVerify
 );
 authRouter.post("/login", validateBody(userSignInSchema), fetchLoginUser);
 authRouter.get("/current", authenticate, fetchCurrentUser);
